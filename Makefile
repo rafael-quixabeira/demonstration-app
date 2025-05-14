@@ -18,6 +18,23 @@ help:
 	@echo "  generate-mocks        Generate mock files for testing"
 
 install-dependencies:
+	@echo "🔍 Verificando instalação do Ruby..."
+	@if ! command -v ruby >/dev/null 2>&1; then \
+		echo "❌ Ruby não está instalado. Por favor, instale o Ruby primeiro."; \
+		exit 1; \
+	fi
+	@echo "✅ Ruby está instalado: $$(ruby --version)"
+
+	@echo "🔍 Verificando instalação do Bundler..."
+	@if ! command -v bundler >/dev/null 2>&1; then \
+		echo "❌ Bundler não está instalado. Instalando Bundler..."; \
+		gem install bundler; \
+	fi
+	@echo "✅ Bundler está instalado: $$(bundler --version)"
+
+	@echo "📦 Instalando dependências do Gemfile..."
+	bundle install
+
 	@echo "🔧 Installing dependencies (XcodeGen, SwiftGen, Mockolo via Homebrew)..."
 	brew install xcodegen
 	brew install swiftgen
