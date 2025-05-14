@@ -62,5 +62,11 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 *.xcodeproj
 
+# macOS
 .DS_Store
+**/.DS_Store
+
+# SwiftGen
+MainApp/resources/Strings.swift
+MainApp/resources/Assets.swift
 

@@ -22,7 +22,7 @@ struct CharacterDetailView: View {
 
     @ViewBuilder
     func buildPair(title: String, value: String) -> some View {
-        Text("\(NSLocalizedString(title, comment: "")): ")
+        Text("\(title): ")
             .font(.subheadline)
             .fontWeight(.bold) +
         Text(value)
@@ -46,11 +46,11 @@ struct CharacterDetailView: View {
                                 .font(.headline)
 
                             HStack {
-                                buildPair(title: "status-label", value: data.status)
+                                buildPair(title: Strings.statusLabel, value: data.status)
                                 Text(data.statusEmoji)
                             }
                             
-                            buildPair(title: "origin-label", value: data.origin)
+                            buildPair(title: Strings.originLabel, value: data.origin)
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -60,7 +60,7 @@ struct CharacterDetailView: View {
                 }.padding(.horizontal, 24.0)
             }
 
-            Text(NSLocalizedString("last-episodes-title", comment: ""))
+            Text(Strings.lastEpisodesTitle)
                 .font(.largeTitle)
                 .fontWeight(.heavy)
 
@@ -69,7 +69,7 @@ struct CharacterDetailView: View {
                     List(data) { episode in
                         VStack(alignment: .leading) {
                             buildPair(title: episode.episode, value: episode.name)
-                            buildPair(title: "air-date-label", value: episode.airDate)
+                            buildPair(title: Strings.airDateLabel, value: episode.airDate)
                         }
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
@@ -89,7 +89,7 @@ struct CharacterDetailView: View {
             }
             .frame(maxWidth: .infinity)
             .loadingOverlay(viewModel.episodes.isInLoadingState)
-            .errorOverlay(show: viewModel.episodes.isInErrorState, message: NSLocalizedString("generic-error-message", comment: "")) {
+            .errorOverlay(show: viewModel.episodes.isInErrorState, message: Strings.genericErrorMessage) {
                 Task {
                     await viewModel.fetchEpisodeList()
                 }
@@ -100,12 +100,12 @@ struct CharacterDetailView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.gray.opacity(0.1))
         .loadingOverlay(viewModel.character.isInLoadingState)
-        .errorOverlay(show: viewModel.character.isInErrorState, message: NSLocalizedString("generic-error-message", comment: "")) {
+        .errorOverlay(show: viewModel.character.isInErrorState, message: Strings.genericErrorMessage) {
             Task {
                 await viewModel.fetchCharacterData()
             }
         }
-        .navigationTitle(viewModel.character.loadedValue?.name ?? NSLocalizedString("character-screen-title", comment: ""))
+        .navigationTitle(viewModel.character.loadedValue?.name ?? Strings.characterScreenTitle)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: { router.presentSheet(.tierSelect) }) {
@@ -194,7 +194,7 @@ extension CharacterDetailView {
                 name: character.name,
                 status: character.status.rawValue.capitalized,
                 statusEmoji: character.status.emoji,
-                origin: character.origin ?? NSLocalizedString("unknown-label", comment: ""),
+                origin: character.origin ?? Strings.unknownLabel,
                 image: character.image,
                 episodes: character.episodes
             )

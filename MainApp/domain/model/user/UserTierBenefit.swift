@@ -15,22 +15,22 @@ enum UserTierBenefit: CaseIterable {
     var title: String {
         switch self {
         case .prefetching:
-            return NSLocalizedString("benefit-prefetching-title", comment: "")
+            return Strings.benefitPrefetchingTitle
         case .cache:
-            return NSLocalizedString("benefit-cache-title", comment: "")
+            return Strings.benefitCacheTitle
         case .turbo:
-            return NSLocalizedString("benefit-turbo-title", comment: "")
+            return Strings.benefitTurboTitle
         }
     }
 
     var description: String {
         switch self {
         case .prefetching:
-            return NSLocalizedString("benefit-prefetching-description", comment: "")
+            return Strings.benefitPrefetchingDescription
         case .cache:
-            return NSLocalizedString("benefit-cache-description", comment: "")
+            return Strings.benefitCacheDescription
         case .turbo:
-            return NSLocalizedString("benefit-turbo-description", comment: "")
+            return Strings.benefitTurboDescription
         }
     }
 }

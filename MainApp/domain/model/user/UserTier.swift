@@ -15,11 +15,11 @@ enum UserTier: String, CaseIterable {
     var localizedName: String {
         switch self {
         case .free:
-            return NSLocalizedString("tier-free", comment: "")
+            return Strings.tierFree
         case .premium:
-            return NSLocalizedString("tier-premium", comment: "")
+            return Strings.tierPremium
         case .vip:
-            return NSLocalizedString("tier-vip", comment: "")
+            return Strings.tierVip
         }
     }
 
@@ -31,6 +31,17 @@ enum UserTier: String, CaseIterable {
             [.prefetching, .cache]
         case .vip:
             [.prefetching, .cache, .turbo]
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .free:
+            return Strings.tierFree
+        case .premium:
+            return Strings.tierPremium
+        case .vip:
+            return Strings.tierVip
         }
     }
 }

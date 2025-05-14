@@ -28,7 +28,7 @@ struct CharacterListView: View {
                     onTap: navigateToDetail
                 )
             case .error:
-                Color.clear.errorOverlay(show: true, message: NSLocalizedString("generic-error-message", comment: "")) {
+                Color.clear.errorOverlay(show: true, message: Strings.genericErrorMessage) {
                     Task {
                         await viewModel.fetch()
                     }
@@ -41,7 +41,7 @@ struct CharacterListView: View {
             guard viewModel.list.isUndefinedState else { return }
             await viewModel.fetch()
         }
-        .navigationTitle(NSLocalizedString("characters-screen-title", comment: ""))
+        .navigationTitle(Strings.charactersScreenTitle)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: { router.presentSheet(.tierSelect) }) {

@@ -17,7 +17,7 @@ struct LoadingViewModifier: ViewModifier {
             .overlay {
                 if isLoading {
                     Color.clear.overlay {
-                        ProgressView(NSLocalizedString("loading-message", comment: ""))
+                        ProgressView(Strings.loadingMessage)
                             .controlSize(.large)
                             .progressViewStyle(CircularProgressViewStyle(tint: .black.opacity(0.75)))
                             .frame(maxWidth: .infinity, maxHeight: .infinity)

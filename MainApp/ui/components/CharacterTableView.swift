@@ -165,7 +165,7 @@ public struct CharacterTableView: UIViewRepresentable {
 
         func configure(with character: Character) {
             nameLabel.text = character.name
-            statusLabel.text = "\(NSLocalizedString(character.species, comment: "")) - \(NSLocalizedString(character.status.rawValue, comment: "status-label"))"
+            statusLabel.text = "\(character.species) - \(character.status.rawValue)"
             characterImageView.kf.setImage(with: character.image)
         }
     }

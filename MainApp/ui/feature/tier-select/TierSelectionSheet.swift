@@ -16,16 +16,16 @@ struct TierSelectionSheet: View {
             
             VStack(spacing: 24) {
                 VStack(spacing: 8) {
-                    Text(String(format: NSLocalizedString("tier-sheet-greeting", comment: ""), viewModel.username))
+                    Text(Strings.tierSheetGreeting(viewModel.username))
                         .font(.title)
                         .bold()
                     
-                    Text(NSLocalizedString("tier-sheet-change-label", comment: ""))
+                    Text(Strings.tierSheetChangeLabel)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
                 
-                Picker(NSLocalizedString("home-tier-label", comment: ""), selection: $viewModel.selectedTier) {
+                Picker(Strings.homeTierLabel, selection: $viewModel.selectedTier) {
                     ForEach(UserTier.allCases, id: \.self) { tier in
                         Text(tier.localizedName)
                             .tag(tier)

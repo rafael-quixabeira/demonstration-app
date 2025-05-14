@@ -31,7 +31,7 @@ struct ErrorOverlayModifier: ViewModifier {
                                     .foregroundColor(.black)
                                     .padding(.horizontal)
 
-                                Button(NSLocalizedString("try-again-button", comment: ""), action: retry)
+                                Button(Strings.tryAgainButton, action: retry)
                                     .buttonStyle(.bordered)
                                     .padding(.horizontal, 24)
                                     .padding(.vertical, 8)

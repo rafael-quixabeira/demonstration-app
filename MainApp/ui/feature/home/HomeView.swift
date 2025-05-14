@@ -24,15 +24,15 @@ struct HomeView: View {
             Spacer()
             
             VStack(spacing: 16) {
-                Text(NSLocalizedString("home-username-placeholder", comment: ""))
+                Text(Strings.homeUsernamePlaceholder)
                     .font(.title)
-                TextField(NSLocalizedString("home-username-label", comment: ""), text: $viewModel.username)
+                TextField(Strings.homeUsernameLabel, text: $viewModel.username)
                     .textFieldStyle(.roundedBorder)
                     .autocorrectionDisabled()
 
-                Text(NSLocalizedString("home-tier-label", comment: ""))
+                Text(Strings.homeTierLabel)
                     .font(.title)
-                Picker(NSLocalizedString("home-tier-label", comment: ""), selection: $viewModel.selectedTier) {
+                Picker(Strings.homeTierLabel, selection: $viewModel.selectedTier) {
                     ForEach(viewModel.options, id: \.self) { option in
                         Text(option.localizedName)
                             .tag(option)
@@ -64,7 +64,7 @@ struct HomeView: View {
             .cornerRadius(12)
 
             Button(action: viewModel.setUserData, label: {
-                Text(NSLocalizedString("home-start-button", comment: ""))
+                Text(Strings.homeStartButton)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 8.0)
@@ -79,14 +79,12 @@ struct HomeView: View {
         .onChange(of: viewModel.validation, initial: false) { _, newValue in
             showErrorAlert = newValue?.isEmpty == false
         }
-        .alert(NSLocalizedString("validation-error-title", comment: ""), isPresented: $showErrorAlert, actions: {
-            Button(
-                NSLocalizedString("ok-button", comment: ""),
-                role: .cancel,
-                action: viewModel.clearValidationMessage
-            )
+        .alert(Strings.validationErrorTitle, isPresented: $showErrorAlert, actions: {
+            Button(Strings.okButton) {
+                viewModel.clearValidationMessage()
+            }
         }, message: {
-            Text(viewModel.validation ?? NSLocalizedString("unknown-error-message", comment: ""))
+            Text(viewModel.validation ?? Strings.unknownErrorMessage)
         })
         .onReceive(viewModel.navigationStream, perform: { destination in
             router.push(destination)
@@ -133,7 +131,7 @@ extension HomeView {
 
         public func setUserData() {
             guard username.isEmpty == false else {
-                validation = NSLocalizedString("username-required-message", comment: "")
+                validation = Strings.usernameRequiredMessage
                 return
             }
 
