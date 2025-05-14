@@ -1,0 +1,115 @@
+name: rickandmortyapp
+options:
+  bundleIdPrefix: br.com.rafael
+  xcodeVersion: "15.4"
+  deploymentTarget:
+    iOS: "18.4"
+
+configFiles:
+  Debug: Configs/Dev.xcconfig
+  Release: Configs/Production.xcconfig
+
+packages:
+  Network:
+    path: Modules/Network
+  CwlCatchException:
+    url: https://github.com/mattgallagher/CwlCatchException.git
+    version: 2.2.1
+  CwlPreconditionTesting:
+    url: https://github.com/mattgallagher/CwlPreconditionTesting.git
+    version: 2.2.2
+  Factory:
+    url: https://github.com/hmlongco/Factory.git
+    version: 2.4.12
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher.git
+    version: 8.3.2
+  Nimble:
+    url: https://github.com/Quick/Nimble
+    version: 13.7.1
+  Quick:
+    url: https://github.com/Quick/Quick
+    version: 7.6.2
+  swift-algorithms:
+    url: https://github.com/apple/swift-algorithms.git
+    version: 1.2.1
+  swift-argument-parser:
+    url: https://github.com/apple/swift-argument-parser.git
+    version: 1.5.0
+  swift-numerics:
+    url: https://github.com/apple/swift-numerics.git
+    version: 1.0.3
+
+targets:
+  MainApp:
+    type: application
+    platform: iOS
+    deploymentTarget: "18.4"
+    sources: [MainApp]
+    info:
+      path: MainApp/Info.plist
+      properties:
+        UILaunchScreen_Generation: YES
+        UILaunchStoryboardName: LaunchScreen
+        BASE_URL: $(BASE_URL)
+    dependencies:
+      - package: Network
+      - package: Factory
+      - package: Kingfisher
+      - package: swift-algorithms
+        product: Algorithms
+      - package: swift-argument-parser
+        product: ArgumentParser
+      - package: swift-numerics
+        product: Numerics
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: br.com.rafael.rickandmortyapp
+        SWIFT_VERSION: 5.0
+        TARGETED_DEVICE_FAMILY: 1
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        Release:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: RELEASE
+    configFiles:
+      Debug:
+        xcconfig: Configs/Dev.xcconfig
+      Release:
+        xcconfig: Configs/Production.xcconfig
+  MainAppTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [MainAppTests]
+    info:
+      path: MainAppTests/Info.plist
+    dependencies:
+      - target: MainApp
+      - package: CwlCatchException
+      - package: CwlPreconditionTesting
+      - package: Nimble
+      - package: Quick
+
+schemes:
+  MainApp-dev:
+    build:
+      targets:
+        MainApp: all
+      config: Debug
+    run:
+      config: Debug
+    test:
+      targets:
+        - MainAppTests
+      config: Debug
+  MainApp-prod:
+    build:
+      targets:
+        MainApp: all
+      config: Release
+    run:
+      config: Release
+    test:
+      targets:
+        - MainAppTests
+      config: Release
