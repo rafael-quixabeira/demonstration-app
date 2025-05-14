@@ -12,5 +12,5 @@ public struct PageInfo {
 
 public struct CharacterPage {
     public let info: PageInfo
-    public let characters: [Character]
+    public let characters: [Characterr]
 }

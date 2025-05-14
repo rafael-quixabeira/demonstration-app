@@ -19,7 +19,7 @@ class CharacterAPIRepository: CharacterRepositoryProtocol {
         return CharacterMapper.page(from: wrapper)
     }
 
-    func fetchCharacter(id: String) async throws -> Character {
+    func fetchCharacter(id: String) async throws -> Characterr {
         let dto: CharacterDTO = try await apiClient.perform(api: .detail(id: id))
         return CharacterMapper.toDomain(dto)
     }

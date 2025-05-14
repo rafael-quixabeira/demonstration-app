@@ -52,7 +52,7 @@ struct CharacterListView: View {
         }
     }
 
-    private func navigateToDetail(for character: Character) {
+    private func navigateToDetail(for character: Characterr) {
         router.push(.detail(id: character.id.description))
     }
 }
@@ -69,7 +69,7 @@ extension CharacterListView {
         private var maxNumberOfPages: Int?
 
         @Published
-        var list: ViewState<[Character]> = .undefined
+        var list: ViewState<[Characterr]> = .undefined
 
         init(characterUseCase: CharacterUseCaseProtocol, logger: LoggerProtocol) {
             self.characterUseCase = characterUseCase
@@ -86,7 +86,7 @@ extension CharacterListView {
             }.store(in: &cancellables)
         }
 
-        private func fetch(page: Int = 1) async throws -> [Character] {
+        private func fetch(page: Int = 1) async throws -> [Characterr] {
             let params: KeyValuePairs<String, String> = [
                 "page": page.description
             ]

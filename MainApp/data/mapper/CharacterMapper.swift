@@ -22,7 +22,7 @@ struct CharacterMapper {
         )
     }
 
-    static func toDomain(_ dto: CharacterDTO) -> Character {
+    static func toDomain(_ dto: CharacterDTO) -> Characterr {
         .init(
             id: dto.id.description,
             name: dto.name,

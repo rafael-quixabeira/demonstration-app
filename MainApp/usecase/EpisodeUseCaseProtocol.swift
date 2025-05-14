@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+/// @mockable
 protocol EpisodeUseCaseProtocol {
     func fetchEpisodes(urls: [URL]) async throws -> [Episode]
 }

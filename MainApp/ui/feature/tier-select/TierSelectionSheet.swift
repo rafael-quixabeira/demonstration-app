@@ -5,15 +5,15 @@ import Factory
 struct TierSelectionSheet: View {
     @EnvironmentObject
     private var router: RootView.Router
-    
+
     @StateObject
     private var viewModel: ViewModel = Container.shared.tierSelectionViewModel.resolve()
-    
+
     var body: some View {
         ZStack {
             Color.gray.opacity(0.1)
                 .ignoresSafeArea()
-            
+
             VStack(spacing: 24) {
                 VStack(spacing: 8) {
                     Text(Strings.tierSheetGreeting(viewModel.username))

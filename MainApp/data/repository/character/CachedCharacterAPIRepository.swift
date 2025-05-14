@@ -26,8 +26,8 @@ class CachedCharacterAPIRepository: CharacterRepositoryProtocol {
         return data
     }
 
-    func fetchCharacter(id: String) async throws -> Character {
-        let data: Character = try await cache.getOrFetch(.character(id), fetch: { [unowned self] in
+    func fetchCharacter(id: String) async throws -> Characterr {
+        let data: Characterr = try await cache.getOrFetch(.character(id), fetch: { [unowned self] in
             try await self.apiRepository.fetchCharacter(id: id)
         })
 

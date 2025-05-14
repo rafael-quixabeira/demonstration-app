@@ -12,16 +12,16 @@ import Kingfisher
 public struct CharacterTableView: UIViewRepresentable {
     public typealias UIViewType = UITableView
 
-    let characters: [Character]
+    let characters: [Characterr]
     let onPrefetch: (Int) -> Void
-    let onTap: (Character) -> Void
+    let onTap: (Characterr) -> Void
     let pageSize: Int
     let threshold: Int
 
     public init(
-        characters: [Character],
+        characters: [Characterr],
         onPrefetch: @escaping (Int) -> Void,
-        onTap: @escaping (Character) -> Void,
+        onTap: @escaping (Characterr) -> Void,
         pageSize: Int = 20,
         threshold: Int = 1
     ) {
@@ -54,13 +54,13 @@ public struct CharacterTableView: UIViewRepresentable {
     
     public class Coordinator: NSObject, UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
         private let parent: CharacterTableView
-        private var characters: [Character] = []
+        private var characters: [Characterr] = []
 
         init(parent: CharacterTableView) {
             self.parent = parent
         }
         
-        func update(characters: [Character]) {
+        func update(characters: [Characterr]) {
             self.characters = characters
         }
         
@@ -163,7 +163,7 @@ public struct CharacterTableView: UIViewRepresentable {
             ])
         }
 
-        func configure(with character: Character) {
+        func configure(with character: Characterr) {
             nameLabel.text = character.name
             statusLabel.text = "\(character.species) - \(character.status.rawValue)"
             characterImageView.kf.setImage(with: character.image)

@@ -7,9 +7,10 @@
 
 import Combine
 
+/// @mockable
 protocol CharacterUseCaseProtocol {
     func fetchCharacters(query: KeyValuePairs<String, String>) async throws -> CharacterPage
-    func fetchCharacter(id: String) async throws -> Character
+    func fetchCharacter(id: String) async throws -> Characterr
 }
 
 class CharacterUserTierAwareUseCase {
@@ -42,7 +43,7 @@ extension CharacterUserTierAwareUseCase: CharacterUseCaseProtocol {
         return try await repository.fetchCharacters(query: query)
     }
 
-    func fetchCharacter(id: String) async throws -> Character {
+    func fetchCharacter(id: String) async throws -> Characterr {
         guard let repository = self.characterRepository else {
             fatalError("repository not available, at this method it should not happen")
         }

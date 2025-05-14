@@ -7,10 +7,12 @@
 
 import Combine
 
+/// @mockable
 public protocol UserStreamProtocol {
     var user: AnyPublisher<User?, Never> { get }
 }
 
+/// @mockable
 public protocol MutableUserStreamProtocol: UserStreamProtocol {
     func updateUser(_ user: User?)
 }

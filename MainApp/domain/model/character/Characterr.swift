@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Character {
+public struct Characterr { // this is not a typo
     let id: String
     let name: String
     let origin: String?
@@ -23,8 +23,8 @@ enum CharacterStatus: String {
     case unknown
 }
 
-extension Character: Equatable {
-    public static func == (lhs: Character, rhs: Character) -> Bool {
+extension Characterr: Equatable {
+    public static func == (lhs: Characterr, rhs: Characterr) -> Bool {
         lhs.id == rhs.id
     }
 }

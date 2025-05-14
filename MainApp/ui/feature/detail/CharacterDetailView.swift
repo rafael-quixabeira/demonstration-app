@@ -188,7 +188,7 @@ extension CharacterDetailView {
         let image: URL
         let episodes: [URL]
 
-        static func toViewData(from character: Character) -> Self {
+        static func toViewData(from character: Characterr) -> Self {
             .init(
                 id: character.id,
                 name: character.name,

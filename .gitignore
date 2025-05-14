@@ -70,3 +70,6 @@ fastlane/test_output
 MainApp/resources/Strings.swift
 MainApp/resources/Assets.swift
 
+# Mockolo
+MainAppTests/Generated/Mocks.swift
+

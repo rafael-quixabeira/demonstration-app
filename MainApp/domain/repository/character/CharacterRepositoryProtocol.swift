@@ -7,7 +7,7 @@
 
 protocol CharacterRepositoryProtocol {
     func fetchCharacters(query: KeyValuePairs<String, String>) async throws -> CharacterPage
-    func fetchCharacter(id: String) async throws -> Character
+    func fetchCharacter(id: String) async throws -> Characterr
 }
 
 extension CharacterRepositoryProtocol {
