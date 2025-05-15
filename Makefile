@@ -1,14 +1,9 @@
-# Makefile for XcodeGen project
-
 # Finds the first .xcodeproj file in the current directory
 PROJ = $(firstword $(wildcard *.xcodeproj))
 
 # Source and output paths for mockolo
 MOCK_SOURCE_PATH = MainApp
 MOCK_OUTPUT_PATH = MainAppTests/Generated/Mocks.swift
-
-# Default environment (dev), can be overridden via ENV=prod in CLI
-ENV ?= dev
 
 .PHONY: help install-dependencies generate-project generate-mocks generate-assets arkana
 
