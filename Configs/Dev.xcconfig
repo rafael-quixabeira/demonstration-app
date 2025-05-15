@@ -1,1 +1,2 @@
-BASE_URL = rickandmortyapi.com/api
+API_URL = rickandmortyapi.com/api
+APP_ENV = DEVELOPMENT
