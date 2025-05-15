@@ -5,7 +5,7 @@
 //  Created by Rafael Quixabeira on 09/05/25.
 //
 
-enum LoggerCategory: String {
+public enum LoggerCategory: String {
     case general
     case networking
     case cache

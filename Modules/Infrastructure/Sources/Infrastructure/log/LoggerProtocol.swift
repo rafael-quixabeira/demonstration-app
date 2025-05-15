@@ -5,7 +5,7 @@
 //  Created by Rafael Quixabeira on 09/05/25.
 //
 
-protocol LoggerProtocol {
+public protocol LoggerProtocol {
     func debug(_ message: String, category: LoggerCategory, file: String, function: String, line: Int)
     func info(_ message: String, category: LoggerCategory, file: String, function: String, line: Int)
     func notice(_ message: String, category: LoggerCategory, file: String, function: String, line: Int)
@@ -13,7 +13,7 @@ protocol LoggerProtocol {
     func error(_ message: String, category: LoggerCategory, file: String, function: String, line: Int)
 }
 
-extension LoggerProtocol {
+public extension LoggerProtocol {
     func debug(
         _ message: String,
         category: LoggerCategory = .general,

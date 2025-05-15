@@ -5,6 +5,8 @@
 //  Created by Rafael Quixabeira on 09/05/25.
 //
 
+import Infrastructure
+
 class CachedCharacterAPIRepository: CharacterRepositoryProtocol {
     private let apiRepository: CharacterRepositoryProtocol
     private let cache: CacheProtocol

@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class IOSLifecycleEvents {
+public class IOSLifecycleEvents {
     private var cancellables: [AnyCancellable] = []
 
     private let didEnterBackgroundSubject = PassthroughSubject<Void, Never>()
@@ -16,7 +16,7 @@ class IOSLifecycleEvents {
     
     private let logger: LoggerProtocol
 
-    init(logger: LoggerProtocol) {
+    public init(logger: LoggerProtocol) {
         self.logger = logger
         self.observe()
     }
@@ -37,11 +37,11 @@ class IOSLifecycleEvents {
 }
 
 extension IOSLifecycleEvents: LifecycleEventsProtocol {
-    var didEnterBackground: AnyPublisher<Void, Never> {
+    public var didEnterBackground: AnyPublisher<Void, Never> {
         didEnterBackgroundSubject.eraseToAnyPublisher()
     }
     
-    var willEnterForeground: AnyPublisher<Void, Never> {
+    public var willEnterForeground: AnyPublisher<Void, Never> {
         willEnterForegroundSubject.eraseToAnyPublisher()
     }
 }

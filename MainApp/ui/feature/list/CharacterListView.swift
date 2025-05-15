@@ -8,6 +8,7 @@
 import SwiftUI
 import Factory
 import Combine
+import Infrastructure
 
 struct CharacterListView: View {
     @StateObject

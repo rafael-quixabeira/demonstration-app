@@ -51,6 +51,11 @@ generate-assets:
 arkana:
 	@echo "🔐 Loading all environment variables and generating keys..."
 	@bundle exec dotenv -f .env.dev,.env.prod,.env -- bundle exec arkana
+	@echo "📦 Moving generated files to Modules directory..."
+	@rm -rf Modules/ArkanaKeys Modules/ArkanaKeysInterfaces
+	@mv ArkanaKeys/ArkanaKeys Modules/
+	@mv ArkanaKeys/ArkanaKeysInterfaces Modules/
+	@rm -rf ArkanaKeys
 
 generate-project: 
 	@echo "🚪 Closing Xcode if it's open..."

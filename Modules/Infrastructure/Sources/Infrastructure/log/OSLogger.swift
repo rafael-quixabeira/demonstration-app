@@ -8,10 +8,10 @@
 import Foundation
 import os
 
-final class OSLogger: LoggerProtocol {
+public class OSLogger: LoggerProtocol {
     private let subsystem: String
 
-    init(subsystem: String = Bundle.main.bundleIdentifier ?? "br.com.rafael.mainApp") {
+    public init(subsystem: String = Bundle.main.bundleIdentifier ?? "br.com.rafael.mainApp") {
         self.subsystem = subsystem
     }
 
@@ -29,7 +29,7 @@ final class OSLogger: LoggerProtocol {
         return "[\(fileName):\(line)] \(function) — \(message)"
     }
 
-    func debug(
+    public func debug(
         _ message: String,
         category: LoggerCategory,
         file: String,
@@ -40,7 +40,7 @@ final class OSLogger: LoggerProtocol {
         logger.debug("\(self.composeMessage(message, file: file, function: function, line: line), privacy: .public)")
     }
 
-    func info(
+    public func info(
         _ message: String,
         category: LoggerCategory,
         file: String,
@@ -49,7 +49,7 @@ final class OSLogger: LoggerProtocol {
         logger.info("\(self.composeMessage(message, file: file, function: function, line: line), privacy: .public)")
     }
 
-    func notice(
+    public func notice(
         _ message: String,
         category: LoggerCategory,
         file: String,
@@ -60,7 +60,7 @@ final class OSLogger: LoggerProtocol {
         logger.notice("\(self.composeMessage(message, file: file, function: function, line: line), privacy: .public)")
     }
 
-    func warning(
+    public func warning(
         _ message: String,
         category: LoggerCategory,
         file: String,
@@ -71,7 +71,7 @@ final class OSLogger: LoggerProtocol {
         logger.warning("\(self.composeMessage(message, file: file, function: function, line: line), privacy: .public)")
     }
 
-    func error(
+    public func error(
         _ message: String,
         category: LoggerCategory,
         file: String,

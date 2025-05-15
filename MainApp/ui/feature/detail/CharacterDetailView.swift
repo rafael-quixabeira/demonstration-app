@@ -8,6 +8,7 @@
 import SwiftUI
 import Factory
 import Kingfisher
+import Infrastructure
 
 struct CharacterDetailView: View {
     @StateObject

@@ -8,11 +8,11 @@
 import Foundation
 import Combine
 
-protocol LifecycleAwareTimerProtocol {
+public protocol LifecycleAwareTimerProtocol {
     var tick: AnyPublisher<Date, Never> { get }
 }
 
-final class LifecycleAwareTimer {
+public class LifecycleAwareTimer {
     private var timerCancellable: AnyCancellable?
     private var lifecycleCancellables: [AnyCancellable] = []
 
@@ -20,7 +20,7 @@ final class LifecycleAwareTimer {
     private let interval: TimeInterval
     private var tickSubject = PassthroughSubject<Date, Never>()
 
-    init(interval: TimeInterval, lifecycleEvents: LifecycleEventsProtocol) {
+    public init(interval: TimeInterval, lifecycleEvents: LifecycleEventsProtocol) {
         self.interval = interval
         self.lifecycleEvents = lifecycleEvents
 
@@ -65,7 +65,7 @@ final class LifecycleAwareTimer {
 }
 
 extension LifecycleAwareTimer: LifecycleAwareTimerProtocol {
-    var tick: AnyPublisher<Date, Never> {
+    public var tick: AnyPublisher<Date, Never> {
         return tickSubject.eraseToAnyPublisher()
     }
 }

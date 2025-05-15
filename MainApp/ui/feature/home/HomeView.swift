@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import Factory
+import Infrastructure
 
 struct HomeView: View {
     @StateObject
@@ -121,7 +122,7 @@ extension HomeView {
         @Published
         public var currentEnv: String = ""
 
-        init(userStream: MutableUserStreamProtocol, environment: Environment) {
+        init(userStream: MutableUserStreamProtocol, environment: Infrastructure.Environment) {
             self.userStream = userStream
             self.currentEnv = environment.appEnvironment
             observe()

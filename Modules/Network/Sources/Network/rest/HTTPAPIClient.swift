@@ -6,13 +6,13 @@
 //
 
 import Foundation
-import Network
+import Infrastructure
 
-class HTTPAPIClient {
+public class HTTPAPIClient {
     private let baseURL: URL
     private let logger: LoggerProtocol
 
-    init(baseURL: URL, logger: LoggerProtocol) {
+    public init(baseURL: URL, logger: LoggerProtocol) {
         self.baseURL = baseURL
         self.logger = logger
     }
@@ -50,7 +50,7 @@ class HTTPAPIClient {
 }
 
 extension HTTPAPIClient: APIClientProtocol {
-    func perform<T>(api request: HTTPAPIRequest) async throws -> T where T : Decodable {
+    public func perform<T>(api request: HTTPAPIRequest) async throws -> T where T : Decodable {
         let urlRequest = try buildRequest(request: request)
 
         logger.info("performing request \(urlRequest)", category: .networking)

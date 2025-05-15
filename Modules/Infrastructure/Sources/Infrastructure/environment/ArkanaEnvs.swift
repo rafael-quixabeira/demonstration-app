@@ -2,7 +2,7 @@ import Foundation
 import ArkanaKeys
 import ArkanaKeysInterfaces
 
-final class ArkanaEnvs: Environment {
+public class ArkanaEnvs {
     private let globalKeys = Keys.Global()
 
     private let environmentKeys: any KeysEnvironmentProtocol = {
@@ -12,8 +12,10 @@ final class ArkanaEnvs: Environment {
         return Keys.Release()
         #endif
     }()
+} 
 
-    var apiURL: URL {
+extension ArkanaEnvs: Environment {
+    public var apiURL: URL {
         guard
             let url = URL(string: "https://\(globalKeys.apiUrl)")
         else {
@@ -22,7 +24,7 @@ final class ArkanaEnvs: Environment {
         return url
     }
 
-    var appEnvironment: String {
+    public var appEnvironment: String {
         environmentKeys.appEnv
     }
-} 
+}

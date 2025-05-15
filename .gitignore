@@ -74,5 +74,6 @@ MainApp/resources/Assets.swift
 MainAppTests/Generated/Mocks.swift
 
 # Arkana generated files
-ArkanaKeys/
+Modules/ArkanaKeysInterfaces/
+Modules/ArkanaKeys/
 

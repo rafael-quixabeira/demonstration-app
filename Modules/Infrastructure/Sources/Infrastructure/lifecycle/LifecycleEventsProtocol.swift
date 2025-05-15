@@ -8,13 +8,13 @@
 import Combine
 import Foundation
 
-protocol LifecycleEventsProtocol {
+public protocol LifecycleEventsProtocol {
     var didEnterBackground: AnyPublisher<Void, Never> { get }
     var willEnterForeground: AnyPublisher<Void, Never> { get }
 }
 
-extension LifecycleEventsProtocol {
-    public func buildLifecycleAwareTimer(interval: TimeInterval) -> LifecycleAwareTimer {
+public extension LifecycleEventsProtocol {
+    func buildLifecycleAwareTimer(interval: TimeInterval) -> LifecycleAwareTimer {
         LifecycleAwareTimer(interval: interval, lifecycleEvents: self)
     }
 }

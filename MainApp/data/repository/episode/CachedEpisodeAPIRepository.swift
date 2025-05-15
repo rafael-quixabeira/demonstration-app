@@ -5,6 +5,8 @@
 //  Created by Rafael Quixabeira on 14/05/25.
 //
 
+import Infrastructure
+
 public class CachedEpisodeAPIRepository: EpisodeRepositoryProtocol {
     private let repository: EpisodeRepositoryProtocol
     private let cache: CacheProtocol

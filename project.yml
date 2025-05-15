@@ -3,7 +3,7 @@ options:
   bundleIdPrefix: br.com.rafael
   xcodeVersion: "15.4"
   deploymentTarget:
-    iOS: "18.4"
+    iOS: "17.0"
 
 configFiles:
   Debug: Configs/Dev.xcconfig
@@ -12,10 +12,11 @@ configFiles:
 packages:
   Network:
     path: Modules/Network
-  ArkanaKeys:
-    path: ./ArkanaKeys/ArkanaKeys
-  ArkanaKeysInterfaces:
-    path: ./ArkanaKeys/ArkanaKeysInterfaces
+  Infrastructure:
+    path: Modules/Infrastructure
+  Apollo:
+    url: https://github.com/apollographql/apollo-ios.git
+    version: 1.21.0
   CwlCatchException:
     url: https://github.com/mattgallagher/CwlCatchException.git
     version: 2.2.1
@@ -48,7 +49,7 @@ targets:
   MainApp:
     type: application
     platform: iOS
-    deploymentTarget: "18.4"
+    deploymentTarget: "17.0"
     sources: [MainApp]
     info:
       path: MainApp/Info.plist
@@ -59,10 +60,10 @@ targets:
         APP_ENV: $(APP_ENV)
     dependencies:
       - package: Network
+      - package: Infrastructure
+      - package: Apollo
       - package: Factory
       - package: Kingfisher
-      - package: ArkanaKeys
-      - package: ArkanaKeysInterfaces
       - package: swift-algorithms
         product: Algorithms
       - package: swift-argument-parser

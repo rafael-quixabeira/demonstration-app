@@ -8,6 +8,7 @@
 import Foundation
 import Factory
 import Network
+import Infrastructure
 
 extension Container {
     var environment: Factory<Environment> {
