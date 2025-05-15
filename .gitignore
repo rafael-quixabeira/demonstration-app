@@ -73,3 +73,6 @@ MainApp/resources/Assets.swift
 # Mockolo
 MainAppTests/Generated/Mocks.swift
 
+# Arkana generated files
+ArkanaKeys/
+
