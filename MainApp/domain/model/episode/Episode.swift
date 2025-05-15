@@ -11,9 +11,3 @@ public struct Episode {
     let name: String
     let airDate: String
 }
-
-extension Episode: Equatable {
-    public static func == (lhs: Episode, rhs: Episode) -> Bool {
-        lhs.id == rhs.id
-    }
-}

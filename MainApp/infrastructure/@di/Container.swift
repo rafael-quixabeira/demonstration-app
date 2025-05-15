@@ -10,6 +10,14 @@ import Factory
 import Network
 
 extension Container {
+    var environment: Factory<Environment> {
+        self {
+            DummyHardcodedEnvs()
+//            ArkanaEnvs()
+//            XCodeConfigEnvs()
+        }.cached
+    }
+    
     var logger: Factory<LoggerProtocol> {
         self { OSLogger() }
     }
@@ -39,7 +47,10 @@ extension Container {
 extension Container {
     var apiClient: Factory<APIClientProtocol> {
         self {
-            HTTPAPIClient(baseURL: Bundle.main.baseURL, logger: self.logger.resolve())
+            HTTPAPIClient(
+                baseURL: self.environment.resolve().apiURL,
+                logger: self.logger.resolve()
+            )
         }
     }
 }
@@ -147,7 +158,8 @@ extension Container {
     var homeViewModel: Factory<HomeView.ViewModel> {
         self {
             HomeView.ViewModel(
-                userStream: self.userMutable.resolve()
+                userStream: self.userMutable.resolve(),
+                environment: self.environment.resolve()
             )
         }
     }

@@ -73,6 +73,10 @@ struct HomeView: View {
             .buttonStyle(.borderedProminent)
             
             Spacer()
+            
+            Text(viewModel.currentEnv)
+                .foregroundStyle(.secondary)
+                .font(.caption)
         }
         .padding()
         .background(Color.gray.opacity(0.1))
@@ -95,6 +99,7 @@ struct HomeView: View {
 extension HomeView {
     class ViewModel: ObservableObject {
         private let userStream: MutableUserStreamProtocol
+
         private var cancellables: [AnyCancellable] = []
         private var navigateToStreamPublisher: PassthroughSubject<RootView.Screen, Never> = .init()
 
@@ -113,8 +118,12 @@ extension HomeView {
         @Published
         public var validation: String?
 
-        init(userStream: MutableUserStreamProtocol) {
+        @Published
+        public var currentEnv: String = ""
+
+        init(userStream: MutableUserStreamProtocol, environment: Environment) {
             self.userStream = userStream
+            self.currentEnv = environment.appEnvironment
             observe()
         }
 

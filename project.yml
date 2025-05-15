@@ -12,6 +12,10 @@ configFiles:
 packages:
   Network:
     path: Modules/Network
+  ArkanaKeys:
+    path: ./ArkanaKeys/ArkanaKeys
+  ArkanaKeysInterfaces:
+    path: ./ArkanaKeys/ArkanaKeysInterfaces
   CwlCatchException:
     url: https://github.com/mattgallagher/CwlCatchException.git
     version: 2.2.1
@@ -51,11 +55,14 @@ targets:
       properties:
         UILaunchScreen_Generation: YES
         UILaunchStoryboardName: LaunchScreen
-        BASE_URL: $(BASE_URL)
+        API_URL: $(API_URL)
+        APP_ENV: $(APP_ENV)
     dependencies:
       - package: Network
       - package: Factory
       - package: Kingfisher
+      - package: ArkanaKeys
+      - package: ArkanaKeysInterfaces
       - package: swift-algorithms
         product: Algorithms
       - package: swift-argument-parser
