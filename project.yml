@@ -93,6 +93,7 @@ targets:
       path: MainAppTests/Info.plist
     dependencies:
       - target: MainApp
+      - package: Infrastructure
       - package: CwlCatchException
       - package: CwlPreconditionTesting
       - package: Nimble

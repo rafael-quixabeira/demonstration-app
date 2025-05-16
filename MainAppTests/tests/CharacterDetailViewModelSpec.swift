@@ -9,6 +9,7 @@ import Foundation
 import Quick
 import Nimble
 import Combine
+import Infrastructure
 @testable import MainApp
 
 class CharacterDetailViewModelSpec: AsyncSpec {

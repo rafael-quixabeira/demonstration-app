@@ -7,6 +7,7 @@
 
 import Testing
 import Combine
+import Infrastructure
 @testable import MainApp
 
 struct HomeViewModelTest {
@@ -15,7 +16,7 @@ struct HomeViewModelTest {
     @Test("Initial state should have default values")
     func initialState() {
         let userStream = MutableUserStreamProtocolMock()
-        let viewModel = HomeView.ViewModel(userStream: userStream)
+        let viewModel = HomeView.ViewModel(userStream: userStream, environment: EnvironmentMock(appEnvironment: ""))
 
         #expect(viewModel.username.isEmpty)
         #expect(viewModel.selectedTier == .free)
@@ -26,7 +27,7 @@ struct HomeViewModelTest {
     @Test("Empty username should show validation error")
     func emptyUsernameValidation() {
         let userStream = MutableUserStreamProtocolMock()
-        let viewModel = HomeView.ViewModel(userStream: userStream)
+        let viewModel = HomeView.ViewModel(userStream: userStream, environment: EnvironmentMock(appEnvironment: ""))
 
         viewModel.setUserData()
 
@@ -37,7 +38,7 @@ struct HomeViewModelTest {
     @Test("Valid user data should update stream and navigate to list")
     mutating func validUserDataUpdate() async throws {
         let userStream = MutableUserStreamProtocolMock()
-        let viewModel = HomeView.ViewModel(userStream: userStream)
+        let viewModel = HomeView.ViewModel(userStream: userStream, environment: EnvironmentMock(appEnvironment: ""))
         var navigationEvents: [RootView.Screen] = []
 
         // Setup navigation observation
@@ -65,7 +66,7 @@ struct HomeViewModelTest {
     @Test("Should observe and update from user stream")
     func userStreamObservation() {
         let userStream = MutableUserStreamProtocolMock()
-        let viewModel = HomeView.ViewModel(userStream: userStream)
+        let viewModel = HomeView.ViewModel(userStream: userStream, environment: EnvironmentMock(appEnvironment: ""))
         
         // Simulate user update from stream
         userStream.userSubject.send(User(username: "StreamUser", tier: .premium))
@@ -77,7 +78,7 @@ struct HomeViewModelTest {
     @Test("Clear validation should reset validation message")
     func clearValidation() {
         let userStream = MutableUserStreamProtocolMock()
-        let viewModel = HomeView.ViewModel(userStream: userStream)
+        let viewModel = HomeView.ViewModel(userStream: userStream, environment: EnvironmentMock(appEnvironment: ""))
         
         // Set initial validation error
         viewModel.setUserData() // This will set validation error for empty username

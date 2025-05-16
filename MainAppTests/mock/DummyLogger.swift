@@ -6,6 +6,7 @@
 //
 
 @testable import MainApp
+import Infrastructure
 
 final class DummyLogger: LoggerProtocol {
     func debug(_ message: String, category: LoggerCategory, file: String, function: String, line: Int) {}

@@ -1,5 +1,9 @@
 # Demonstration App
 
+> **Note on Implementation Complexity**: Some parts of this codebase are intentionally more complex than necessary to showcase different architectural patterns, Swift features, and implementation approaches. In real-world applications, the choice of implementation should be guided by the project's specific context and requirements.
+
+> **Note on Environment Variables**: While it's a crucial security practice to never commit environment variables or sensitive keys to a repository and distribute them safely among team members, this project intentionally includes them to facilitate easy setup and demonstration. This decision was made purely for educational purposes, allowing anyone to clone and run the project immediately.
+
 This project serves as my portfolio to showcase my iOS development capabilities and understanding of software engineering best practices. I've structured it not as a production-ready application, but rather as a comprehensive demonstration of my proficiency with various iOS, Swift, and Xcode features, such as:
 
 - Modern Swift programming practices
@@ -30,20 +34,21 @@ This project serves as my portfolio to showcase my iOS development capabilities 
   - Arkana for secure environment management
   - Makefile for build automation
   - XcodeGen for project generation
-- Testing practices and mock generation
-  - Unit Tests
-  - Integration Tests
-  - Custom test helpers
+- Testing practices and tools
+  - Multiple testing approaches
+    - XCTest for traditional unit testing
+    - Quick/Nimble for BDD-style testing
+    - Custom Testing framework
+  - Test organization
+    - Mocks and fixtures
+    - Async testing support
+    - Custom test helpers
 - Development workflow automation
   - Makefile automation
   - CI/CD setup
   - Build scripts
 
 The project intentionally implements various technical approaches to showcase different development skills and knowledge of the iOS ecosystem.
-
-> **Note on Implementation Complexity**: Some parts of this codebase are intentionally more complex than necessary to showcase different architectural patterns, Swift features, and implementation approaches. In real-world applications, the choice of implementation should be guided by the project's specific context and requirements.
-
-> **Note on Environment Variables**: While it's a crucial security practice to never commit environment variables or sensitive keys to a repository and distribute them safely among team members, this project intentionally includes them to facilitate easy setup and demonstration. This decision was made purely for educational purposes, allowing anyone to clone and run the project immediately.
 
 ## Requirements
 

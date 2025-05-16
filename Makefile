@@ -1,21 +1,28 @@
 # Finds the first .xcodeproj file in the current directory
 PROJ = $(firstword $(wildcard *.xcodeproj))
+SCHEME = MainApp-dev
 
 # Source and output paths for mockolo
-MOCK_SOURCE_PATH = MainApp
+MOCK_SOURCE_PATH_MAIN = MainApp
+MOCK_SOURCE_PATH_MODULES = Modules/Infrastructure/Sources
 MOCK_OUTPUT_PATH = MainAppTests/Generated/Mocks.swift
 
-.PHONY: help install-dependencies generate-project generate-mocks generate-assets arkana
+# Test results directories
+TEST_RESULTS = TestResults TestResults.xcresult
+
+.PHONY: help install-dependencies generate-project generate-mocks generate-assets arkana test build-release
 
 help:
 	@echo "Usage: make <target>"
 	@echo
 	@echo "Available targets:"
-	@echo "  install-dependencies   Install XcodeGen, SwiftGen and Mockolo via Homebrew"
+	@echo "  install-dependencies   Install XcodeGen, SwiftGen, Mockolo and xcbeautify via Homebrew"
 	@echo "  generate-project       Close Xcode, regenerate project, and open it"
 	@echo "  generate-mocks        Generate mock files for testing"
 	@echo "  generate-assets       Generate strings and assets with SwiftGen"
 	@echo "  arkana               Generate secrets using Arkana"
+	@echo "  test                 Run unit tests"
+	@echo "  build-release        Create a release build"
 
 install-dependencies:
 	@echo "🔍 Checking Ruby installation..."
@@ -35,14 +42,25 @@ install-dependencies:
 	@echo "📦 Installing Gemfile dependencies..."
 	bundle install
 	
-	@echo "🔧 Installing dependencies (XcodeGen, SwiftGen, Mockolo via Homebrew)..."
+	@echo "🔧 Installing dependencies (XcodeGen, SwiftGen, Mockolo, xcbeautify via Homebrew)..."
 	brew install xcodegen
 	brew install swiftgen
 	brew install mockolo
+	brew install xcbeautify
 
 generate-mocks:
 	@echo "🃏 Generating mocks with Mockolo..."
-	@mockolo -s $(MOCK_SOURCE_PATH) -d $(MOCK_OUTPUT_PATH) -i "MainApp" --enable-args-history --annotation mockable > /dev/null 2>&1
+	@echo "📂 Scanning directories:"
+	@echo "   - $(MOCK_SOURCE_PATH_MAIN)"
+	@echo "   - $(MOCK_SOURCE_PATH_MODULES)"
+	@mockolo \
+		-s $(MOCK_SOURCE_PATH_MAIN) \
+		-s $(MOCK_SOURCE_PATH_MODULES) \
+		-d $(MOCK_OUTPUT_PATH) \
+		-i "MainApp" \
+		-c "Infrastructure" \
+		--enable-args-history \
+		--annotation mockable > /dev/null 2>&1
 
 generate-assets:
 	@echo "🔤 Generating strings and assets with SwiftGen..."
@@ -67,3 +85,16 @@ generate-project:
 	@xcodegen generate
 	@echo "📂 Opening generated project ($(PROJ))..."
 	@open "$(PROJ)"
+
+test:
+	@echo "🧹 Cleaning up test results..."
+	@rm -rf $(TEST_RESULTS)
+	@echo "🧪 Running unit tests..."
+	@xcodebuild test \
+		-project $(PROJ) \
+		-scheme $(SCHEME) \
+		-destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+		-resultBundlePath TestResults \
+		| xcbeautify || exit 1
+	@echo "🧹 Cleaning up test results..."
+	@rm -rf $(TEST_RESULTS)

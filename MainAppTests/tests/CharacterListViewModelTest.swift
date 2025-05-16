@@ -8,6 +8,7 @@
 import XCTest
 import Combine
 import Foundation
+import Infrastructure
 @testable import MainApp
 
 final class CharacterListViewModelTests: XCTestCase {
