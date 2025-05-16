@@ -13,34 +13,36 @@ import Infrastructure
 extension Container {
     var environment: Factory<Environment> {
         self {
-            DummyHardcodedEnvs()
-//            ArkanaEnvs()
+            ArkanaEnvs()
 //            XCodeConfigEnvs()
+//            DummyHardcodedEnvs()
         }.cached
     }
-    
+
     var logger: Factory<LoggerProtocol> {
-        self { OSLogger() }
-    }
-
-    var inMemoryCache: Factory<CacheProtocol> {
         self {
-            InMemoryCache(logger: self.logger.resolve())
-        }.singleton
+            OSLogger()
+//            DatadogLogger()
+//            PaperTrailLogger()
+        }
     }
 
-    var lifecycleAwareCache: Factory<CacheProtocol> {
+    var cache: Factory<CacheProtocol> {
         self {
             ApplicatonLifecycleAwareCache(
                 logger: self.logger.resolve(),
                 lifecycleEvents: self.lifecycleEvents.resolve()
             )
+
+//            InMemoryCache(logger: self.logger.resolve())
         }.singleton
     }
 
     var lifecycleEvents: Factory<LifecycleEventsProtocol> {
         self {
             IOSLifecycleEvents(logger: self.logger.resolve())
+//            TVOSLifecycleEvents(logger: self.logger.resolve())
+//            VisionOSLifecycleEvents(logger: self.logger.resolve())
         }.cached
     }
 }
@@ -67,7 +69,7 @@ extension Container {
         self {
             CachedCharacterAPIRepository(
                 apiRepository: self.characterRepository.resolve(),
-                cache: self.lifecycleAwareCache.resolve()
+                cache: self.cache.resolve()
             )
         }
     }
@@ -93,7 +95,7 @@ extension Container {
         self {
             CachedEpisodeAPIRepository(
                 repository: self.episodeRepository.resolve(),
-                cache: self.lifecycleAwareCache.resolve()
+                cache: self.cache.resolve()
             )
         }
     }

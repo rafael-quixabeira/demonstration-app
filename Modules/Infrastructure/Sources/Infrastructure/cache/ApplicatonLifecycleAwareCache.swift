@@ -29,14 +29,14 @@ public actor ApplicatonLifecycleAwareCache: AnyObject {
     private func observe() {
         lifecycleEvents.didEnterBackground.sink { _ in
             Task { [weak self] in 
-//                await self?.logger.info("❌ entering background, erasing cache", category: .cache)
+                await self?.logger.info("❌ entering background, erasing cache", category: .cache)
                 await self?.erase()
             }
         }.store(in: &cancellables)
 
         lifecycleEvents.buildLifecycleAwareTimer(interval: 1.minutes).tick.sink(receiveValue: { _ in
             Task { [weak self] in
-//                await self?.logger.info("❌ removing expired cache items", category: .cache)
+                await self?.logger.info("❌ removing expired cache items", category: .cache)
                 await self?.removeExpiredItems()
             }
         }).store(in: &cancellables)
@@ -48,10 +48,10 @@ public actor ApplicatonLifecycleAwareCache: AnyObject {
 
         for key in keys {
             guard let wrapper = cache.object(forKey: key as NSString) else {
-//                self.logger.info(
-//                    "❌ key item \(key) is not in the cache which means was removed by NSCache's eviction system. Removing from keys set",
-//                    category: .general
-//                )
+                self.logger.info(
+                    "❌ key item \(key) is not in the cache which means was removed by NSCache's eviction system. Removing from keys set",
+                    category: .general
+                )
                 
                 deleteCacheEntry(forKey: key)
                 continue
@@ -67,7 +67,7 @@ public actor ApplicatonLifecycleAwareCache: AnyObject {
         cache.removeObject(forKey: key as NSString)
         cacheKeys.remove(key)
 
-//        logger.info("🗑️ removed cache for “\(key)”", category: .cache)
+        logger.info("🗑️ removed cache for “\(key)”", category: .cache)
     }
 }
 

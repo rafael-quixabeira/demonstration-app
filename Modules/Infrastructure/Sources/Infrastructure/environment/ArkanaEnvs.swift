@@ -4,6 +4,8 @@ import ArkanaKeysInterfaces
 
 public class ArkanaEnvs {
     private let globalKeys = Keys.Global()
+    
+    public init() {}
 
     private let environmentKeys: any KeysEnvironmentProtocol = {
         #if DEBUG

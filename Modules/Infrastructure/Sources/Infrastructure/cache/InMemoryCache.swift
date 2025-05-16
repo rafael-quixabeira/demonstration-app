@@ -20,7 +20,7 @@ public actor InMemoryCache {
 extension InMemoryCache: CacheProtocol {
     public func get<T: Sendable>(_ key: CacheKey) async -> T? {
         guard let entry = storage[key], Date.now <= entry.expiration else {
-//            logger.info("❌ cache miss for "\(key.identifier)"", category: .cache)
+            logger.info("❌ cache miss for \(key.identifier)", category: .cache)
             return nil
         }
 
@@ -31,16 +31,16 @@ extension InMemoryCache: CacheProtocol {
         let expiration = Date().addingTimeInterval(key.ttl)
         storage[key] = (value, expiration)
 
-//        logger.info("✅ cached "\(key.identifier)" até \(expiration)", category: .cache)
+        logger.info("✅ cached \(key.identifier) until \(expiration)", category: .cache)
     }
 
     public func remove(_ key: CacheKey) async {
         storage.removeValue(forKey: key)
-//        logger.info("✅ removed "\(key.identifier)", category: .cache)
+        logger.info("✅ removed \(key.identifier)", category: .cache)
     }
 
     public func erase() async {
         storage = [:]
-//        logger.info("✅ erased all cached values", category: .cache)
+        logger.info("✅ erased all cached values", category: .cache)
     }
 }
