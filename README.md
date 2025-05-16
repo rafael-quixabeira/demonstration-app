@@ -1,9 +1,8 @@
 # Demonstration App
 
-> **Note on Implementation Complexity**: Some parts of this codebase are intentionally more complex than necessary to showcase different architectural patterns, Swift features, and implementation approaches. In real-world applications, the choice of implementation should be guided by the project's specific context and requirements.
-
 > **Note on Environment Variables**: While it's a crucial security practice to never commit environment variables or sensitive keys to a repository and distribute them safely among team members, this project intentionally includes them to facilitate easy setup and demonstration. This decision was made purely for educational purposes, allowing anyone to clone and run the project immediately.
 
+> **Note on Implementation Complexity**: Some parts of this codebase are intentionally more complex than necessary to showcase different architectural patterns, Swift features, and implementation approaches. In real-world applications, the choice of implementation should be guided by the project's specific context and requirements.
 
 This project serves as my portfolio to showcase my iOS development capabilities and understanding of software engineering best practices. I've structured it not as a production-ready application, but rather as a comprehensive demonstration of my proficiency with various iOS, Swift, and Xcode features, such as:
 
