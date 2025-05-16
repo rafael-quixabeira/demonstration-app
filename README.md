@@ -4,6 +4,7 @@
 
 > **Note on Environment Variables**: While it's a crucial security practice to never commit environment variables or sensitive keys to a repository and distribute them safely among team members, this project intentionally includes them to facilitate easy setup and demonstration. This decision was made purely for educational purposes, allowing anyone to clone and run the project immediately.
 
+
 This project serves as my portfolio to showcase my iOS development capabilities and understanding of software engineering best practices. I've structured it not as a production-ready application, but rather as a comprehensive demonstration of my proficiency with various iOS, Swift, and Xcode features, such as:
 
 - Modern Swift programming practices
@@ -38,17 +39,35 @@ This project serves as my portfolio to showcase my iOS development capabilities 
   - Multiple testing approaches
     - XCTest for traditional unit testing
     - Quick/Nimble for BDD-style testing
-    - Custom Testing framework
+    - Swift Testing framework
   - Test organization
     - Mocks and fixtures
     - Async testing support
     - Custom test helpers
 - Development workflow automation
   - Makefile automation
-  - CI/CD setup
-  - Build scripts
 
 The project intentionally implements various technical approaches to showcase different development skills and knowledge of the iOS ecosystem.
+
+## Roadmap
+
+The following features and improvements are planned for future implementation:
+
+### Testing Enhancements
+- [ ] UI Tests implementation using XCUITest
+- [ ] Increase unit test coverage across all modules
+- [ ] UI Unit Testing using [ios-snapshot-test-case](https://github.com/uber/ios-snapshot-test-case)
+
+### CI/CD & Automation
+- [ ] Fastlane integration + Github Actions
+  - Automated test execution
+  - Build automation
+  - App Store deployment pipeline
+
+### Feature Additions
+- [ ] Push Notifications support
+- [ ] Deep Linking integration using Firebase
+- [ ] Authentication system (Auth0 or Clerk)
 
 ## Requirements
 
