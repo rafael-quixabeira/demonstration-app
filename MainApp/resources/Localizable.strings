@@ -27,4 +27,6 @@
 "benefit-turbo-description" = "Executes multiple API calls in parallel instead of sequentially, accelerating overall fetch time via asynchronous concurrency.";
 "tier-free" = "Free";
 "tier-premium" = "Premium";
-"tier-vip" = "VIP"; 
+"tier-vip" = "VIP";
+"detail_screen_title" = "Details";
+"search_prompt" = "Search by name..."; 

@@ -18,7 +18,7 @@ class CachedCharacterAPIRepository: CharacterRepositoryProtocol {
 
     func fetchCharacters(query: KeyValuePairs<String, String>) async throws -> CharacterPage {
         let data: CharacterPage = try await cache.getOrFetch(.characters(query.description), fetch: { [unowned self] in
-            try await self.apiRepository.fetchCharacters()
+            try await self.apiRepository.fetchCharacters(query: query)
         })
 
         for character in data.characters {

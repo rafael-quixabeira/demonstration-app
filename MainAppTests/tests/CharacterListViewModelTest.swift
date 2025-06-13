@@ -119,12 +119,30 @@ final class CharacterListViewModelTests: XCTestCase {
             self.viewModel.list.loadedValue?.count == 1
         }
     }
+
+    func test_searchQuery_whenChanged_shouldCallFetchWithCorrectParameters() async {
+        useCase.stubbedResult = .success(characters, pages: 1)
+
+        let expectation = XCTestExpectation(description: "Fetch should be called after debounce with correct query")
+
+        useCase.onFetchCharacters = { query in
+            let hasNameQuery = query.contains { $0.0 == "name" && $0.1 == "Rick" }
+            XCTAssertTrue(hasNameQuery, "The 'name' parameter was not passed to the use case.")
+            expectation.fulfill()
+        }
+
+        viewModel.searchQuery = "Rick"
+
+        await fulfillment(of: [expectation], timeout: 2.0)
+    }
 }
 
 private final class MockCharacterUseCase: CharacterUseCaseProtocol {
     var stubbedResult: Result?
-    
+    var onFetchCharacters: ((KeyValuePairs<String, String>) -> Void)?
+
     func fetchCharacters(query: KeyValuePairs<String, String>) async throws -> CharacterPage {
+        onFetchCharacters?(query)
         switch stubbedResult {
         case .success(let characters, let pages):
             return CharacterPage(info: .init(count: 20, pages: pages), characters: characters)

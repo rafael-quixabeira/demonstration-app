@@ -17,6 +17,9 @@ struct CharacterListView: View {
     @EnvironmentObject
     private var router: RootView.Router
 
+    @State
+    private var searchText: String = ""
+
     var body: some View {
         VStack {
             switch viewModel.list {
@@ -35,6 +38,10 @@ struct CharacterListView: View {
                     }
                 }
             }
+        }
+        .searchable(text: $searchText, prompt: Text(Strings.searchPrompt))
+        .onChange(of: searchText) { newValue in
+            viewModel.searchQuery = newValue
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.gray.opacity(0.1))
@@ -72,6 +79,9 @@ extension CharacterListView {
         @Published
         var list: ViewState<[Characterr]> = .undefined
 
+        @Published
+        var searchQuery: String = ""
+
         init(characterUseCase: CharacterUseCaseProtocol, logger: LoggerProtocol) {
             self.characterUseCase = characterUseCase
             self.logger = logger
@@ -85,12 +95,32 @@ extension CharacterListView {
                     await self?.append(page: page)
                 }
             }.store(in: &cancellables)
+
+            $searchQuery
+                .dropFirst()
+                .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+                .removeDuplicates()
+                .sink { [weak self] _ in
+                    Task {
+                        await self?.fetch()
+                    }
+                }
+                .store(in: &cancellables)
         }
 
         private func fetch(page: Int = 1) async throws -> [Characterr] {
-            let params: KeyValuePairs<String, String> = [
-                "page": page.description
-            ]
+            let params: KeyValuePairs<String, String>
+
+            if !searchQuery.isEmpty {
+                params = [
+                    "page": page.description,
+                    "name": searchQuery
+                ]
+            } else {
+                params = [
+                    "page": page.description
+                ]
+            }
 
             let wrapper = try await self.characterUseCase.fetchCharacters(
                 query: params
@@ -105,6 +135,7 @@ extension CharacterListView {
         public func fetch() async {
             do {
                 list = .loading
+                currentPage = 1
                 let data = try await self.fetch(page: currentPage)
                 list = .loaded(data)
             } catch {
@@ -120,6 +151,10 @@ extension CharacterListView {
         private func append(page: Int) async {
             guard case .loaded(let currentCharacters) = list else { return }
             guard currentPage < page else { return }
+
+            if let maxPages = maxNumberOfPages, page > maxPages {
+                return
+            }
 
             do {
                 let newData = try await self.fetch(page: page)
