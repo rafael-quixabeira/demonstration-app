@@ -15,8 +15,14 @@ class CharacterAPIRepository: CharacterRepositoryProtocol {
     }
 
     func fetchCharacters(query: KeyValuePairs<String, String>) async throws -> CharacterPage {
-        let wrapper: WrapperCharacterDTO =  try await apiClient.perform(api: .list(query: query))
-        return CharacterMapper.page(from: wrapper)
+        do {
+            let wrapper: WrapperCharacterDTO =  try await apiClient.perform(api: .list(query: query))
+            return CharacterMapper.page(from: wrapper)
+        } catch let APIError.unexpectedStatusCode(statusCode, _) where statusCode == 404 {
+            return CharacterPage(info: .init(count: 0, pages: 0), characters: [])
+        } catch {
+            throw error
+        }
     }
 
     func fetchCharacter(id: String) async throws -> Characterr {

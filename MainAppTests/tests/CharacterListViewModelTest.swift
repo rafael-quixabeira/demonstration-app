@@ -64,6 +64,26 @@ final class CharacterListViewModelTests: XCTestCase {
         }
     }
     
+    func test_fetch_whenSuccessfulWithEmptyResult_shouldUpdateStateToEmpty() async {
+        useCase.stubbedResult = .success([], pages: 0)
+        var states: [ViewState<[Characterr]>] = []
+
+        viewModel.$list
+            .dropFirst()
+            .sink { state in
+                states.append(state)
+            }
+            .store(in: &cancellables)
+
+        await viewModel.fetch()
+
+        await XCTAssertAsync {
+            states.count == 2 &&
+            states[0].isInLoadingState &&
+            states[1].isEmptyState
+        }
+    }
+    
     func test_fetch_whenFails_shouldUpdateStateToLoadingThenError() async {
         useCase.stubbedResult = .failure(MockError.someError)
         var states: [ViewState<[Characterr]>] = []

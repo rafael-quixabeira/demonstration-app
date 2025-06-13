@@ -29,4 +29,5 @@
 "tier-premium" = "Premium";
 "tier-vip" = "VIP";
 "detail_screen_title" = "Details";
-"search_prompt" = "Search by name..."; 
+"search_prompt" = "Search by name...";
+"empty_list_message" = "No items to display."; 

@@ -25,6 +25,10 @@ struct CharacterListView: View {
             switch viewModel.list {
             case .undefined, .loading:
                 Color.clear.loadingOverlay(true)
+            case .empty:
+                Text(Strings.emptyListMessage)
+                    .font(.headline)
+                    .foregroundColor(.secondary)
             case .loaded(let data):
                 CharacterTableView(
                     characters: data,
@@ -137,7 +141,12 @@ extension CharacterListView {
                 list = .loading
                 currentPage = 1
                 let data = try await self.fetch(page: currentPage)
-                list = .loaded(data)
+
+                if data.isEmpty {
+                    list = .empty
+                } else {
+                    list = .loaded(data)
+                }
             } catch {
                 list = .error(nil)
             }

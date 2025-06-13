@@ -5,9 +5,12 @@
 //  Created by Rafael Quixabeira on 10/05/25.
 //
 
-enum ViewState<T: Equatable> {
+import Foundation
+
+public enum ViewState<T> {
     case undefined
     case loading
+    case empty
     case loaded(T)
     case error(Error?)
 }
@@ -32,20 +35,17 @@ extension ViewState {
     }
     
     var isInLoadingState: Bool {
-        switch self {
-        case .loading:
-            return true
-        default:
-            return false
-        }
+        guard case .loading = self else { return false }
+        return true
+    }
+
+    var isEmptyState: Bool {
+        guard case .empty = self else { return false }
+        return true
     }
 
     var isInErrorState: Bool {
-        switch self {
-        case .error:
-            return true
-        default:
-            return false
-        }
+        guard case .error = self else { return false }
+        return true
     }
 }
