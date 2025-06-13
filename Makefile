@@ -10,6 +10,8 @@ MOCK_OUTPUT_PATH = MainAppTests/Generated/Mocks.swift
 # Test results directories
 TEST_RESULTS = TestResults TestResults.xcresult
 
+RUBY_VERSION = 3.2.1
+
 .PHONY: help install-dependencies generate-project generate-mocks generate-assets arkana test build-release
 
 help:
@@ -27,10 +29,16 @@ help:
 install-dependencies:
 	@echo "🔍 Checking Ruby installation..."
 	@if ! command -v ruby >/dev/null 2>&1; then \
-		echo "❌ Ruby is not installed. Please install Ruby first."; \
+		echo "❌ Ruby is not installed. Please install Ruby version $(RUBY_VERSION)."; \
 		exit 1; \
 	fi
-	@echo "✅ Ruby is installed: $$(ruby --version)"
+	@CURRENT_RUBY_VERSION=$$('ruby' -e 'puts RUBY_VERSION'); \
+	if [ "$$CURRENT_RUBY_VERSION" != "$(RUBY_VERSION)" ]; then \
+		echo "❌ Incorrect Ruby version. Found $$CURRENT_RUBY_VERSION, but $(RUBY_VERSION) is required."; \
+		echo "ℹ️ Please use a version manager like rbenv or asdf to install and select the correct version."; \
+		exit 1; \
+	fi
+	@echo "✅ Ruby is installed and version is correct: $$(ruby --version)"
 	
 	@echo "🔍 Checking Bundler installation..."
 	@if ! command -v bundler >/dev/null 2>&1; then \
@@ -42,10 +50,13 @@ install-dependencies:
 	@echo "📦 Installing Gemfile dependencies..."
 	bundle install
 	
-	@echo "🔧 Installing dependencies (XcodeGen, SwiftGen, Mockolo, xcbeautify via Homebrew)..."
+	@echo "🔧 Installing XcodeGen (ideal version 2.43.0)..."
 	brew install xcodegen
+	@echo "🔧 Installing SwiftGen (ideal version 6.6.3)..."
 	brew install swiftgen
+	@echo "🔧 Installing Mockolo (ideal version 2.4.0)..."
 	brew install mockolo
+	@echo "🔧 Installing xcbeautify (ideal version 2.28.0)..."
 	brew install xcbeautify
 
 generate-mocks:
