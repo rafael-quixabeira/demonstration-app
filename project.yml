@@ -14,9 +14,6 @@ packages:
     path: Modules/Network
   Infrastructure:
     path: Modules/Infrastructure
-  Apollo:
-    url: https://github.com/apollographql/apollo-ios.git
-    version: 1.21.0
   CwlCatchException:
     url: https://github.com/mattgallagher/CwlCatchException.git
     version: 2.2.1
@@ -61,7 +58,6 @@ targets:
     dependencies:
       - package: Network
       - package: Infrastructure
-      - package: Apollo
       - package: Factory
       - package: Kingfisher
       - package: swift-algorithms
