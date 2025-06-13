@@ -53,6 +53,8 @@ generate-mocks:
 	@echo "📂 Scanning directories:"
 	@echo "   - $(MOCK_SOURCE_PATH_MAIN)"
 	@echo "   - $(MOCK_SOURCE_PATH_MODULES)"
+	@echo "📂 Creating output directory if it doesn't exist..."
+	@mkdir -p $(dir $(MOCK_OUTPUT_PATH))
 	@mockolo \
 		-s $(MOCK_SOURCE_PATH_MAIN) \
 		-s $(MOCK_SOURCE_PATH_MODULES) \
