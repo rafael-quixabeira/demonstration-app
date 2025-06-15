@@ -99,8 +99,15 @@ extension CharacterListView {
                 scheduler: RunLoop.main,
                 latest: false
             ).sink { [weak self] page in
+                guard let self = self else { return }
+
+                if let maxPages = self.maxNumberOfPages, self.currentPage >= maxPages {
+                    logger.info("no more pages to fetch", category: .general)
+                    return
+                }
+                
                 Task {
-                    await self?.append(page: page)
+                    await self.append(page: page)
                 }
             }.store(in: &cancellables)
 
@@ -164,8 +171,6 @@ extension CharacterListView {
         private func append(page: Int) async {
             guard case .loaded(let currentCharacters) = list else { return }
             guard currentPage < page else { return }
-
-            if let maxPages = maxNumberOfPages, page > maxPages { return }
 
             do {
                 let newData = try await self.fetch(page: page)
