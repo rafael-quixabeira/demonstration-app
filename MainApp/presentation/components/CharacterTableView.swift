@@ -23,7 +23,7 @@ public struct CharacterTableView: UIViewRepresentable {
         onPrefetch: @escaping (Int) -> Void,
         onTap: @escaping (Characterr) -> Void,
         pageSize: Int = 20,
-        threshold: Int = 1
+        threshold: Int = 5
     ) {
         self.characters = characters
         self.onPrefetch = onPrefetch
@@ -85,8 +85,20 @@ public struct CharacterTableView: UIViewRepresentable {
 
             guard shouldPrefetch else { return }
 
-            let nextPage = (characters.count / parent.pageSize) + 1
-            parent.onPrefetch(nextPage)
+            parent.onPrefetch(calculateNextPage())
+        }
+
+        public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            let threshold = characters.count - parent.threshold
+            let shouldPrefetch = indexPath.row >= threshold
+
+            guard shouldPrefetch else { return }
+
+            parent.onPrefetch(calculateNextPage())
+        }
+
+        private func calculateNextPage() -> Int {
+            return (characters.count / parent.pageSize) + 1
         }
     }
 

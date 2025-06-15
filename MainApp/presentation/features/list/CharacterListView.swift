@@ -94,7 +94,11 @@ extension CharacterListView {
         }
 
         private func observe() {
-            prefetchStream.throttle(for: .seconds(0.25), scheduler: RunLoop.main, latest: false).sink { [weak self] page in
+            prefetchStream.throttle(
+                for: .seconds(0.25),
+                scheduler: RunLoop.main,
+                latest: false
+            ).sink { [weak self] page in
                 Task {
                     await self?.append(page: page)
                 }
@@ -161,9 +165,7 @@ extension CharacterListView {
             guard case .loaded(let currentCharacters) = list else { return }
             guard currentPage < page else { return }
 
-            if let maxPages = maxNumberOfPages, page > maxPages {
-                return
-            }
+            if let maxPages = maxNumberOfPages, page > maxPages { return }
 
             do {
                 let newData = try await self.fetch(page: page)
